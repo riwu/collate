@@ -37,7 +37,8 @@ public class Logic {
     private static final char STRING_PERIOD = '.';
 
     private static final String REGEX_NEITHER_ALPHANUMERIC_NOR_SPACE =
-        "[^ a-zA-Z0-9]+";
+        "[^ a-zA-Z0-9-]+";
+    public static final String REGEX_LEADING_OR_TRAILING_DASH_OR_SPACE = "(^(-| )+)|((-| )+$)";
 
     private static final String ERROR_IO_EXCEPTION =
         "Encountered IOException for %s";
@@ -216,7 +217,8 @@ public class Logic {
 
             // Only alphanumeric characters are allowed in the author's name
             return split[1].replaceAll(REGEX_NEITHER_ALPHANUMERIC_NOR_SPACE,
-                                       STRING_EMPTY).trim();
+                                       STRING_EMPTY).replaceAll(REGEX_LEADING_OR_TRAILING_DASH_OR_SPACE,
+                                                                STRING_EMPTY);
         } catch (ArrayIndexOutOfBoundsException e) {
             return STRING_EMPTY;
         }
